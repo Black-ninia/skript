@@ -1,0 +1,146 @@
+options:
+	leg: &f&k|&6&k&l|&f&k| &6&lLegendarny Klucz &f&k|&6&k&l|&f&k|
+	zadki: &f&k|&1&k&l|&f&k| &1&lŻadki Klucz &f&k|&1&k&l|&f&k|
+	pospolita: &f&k|&2&k&l|&f&k| &2&lPospolity Klucz &f&k|&2&k&l|&f&k|
+	zwykly: &f&k|&7&k&l|&f&k| &7&lZwykły Klucz &f&k|&7&k&l|&f&k|
+	
+command /legendrnykluczdaj [<player>]:
+	permission: bl.kluczdaj
+	trigger:
+		if arg-1 is not set:
+			send "&9wpisz gracza"
+		if arg 1 is set:
+			give a tripwire hook named "{@leg}" to the argument 1
+on rightclick:
+	if target block is sign:
+		if line 1 of clicked block is "[Legendarny]":
+			if player has tripwire hook named "&f&k|&6&k&l|&f&k| &6&lLegendarny Klucz &f&k|&6&k&l|&f&k|":
+				set {nagrodal} to "10 diamond block" or "64 emerald" or "10 diamond block" or "levi" or "15 diamond block" or "2 netherite ingot" or "diamond_block 9" or "diamond_block 7" or "16 diamond block" or "64 emerald" or "9 diamond block" or "3 beacon" or "1 beacon" or "1 beacon" or "1 beacon" or "1 nether star"
+				message "Trwa loswanie"
+				remove 1 tripwire hook named "&f&k|&6&k&l|&f&k| &6&lLegendarny Klucz &f&k|&6&k&l|&f&k|" from the player
+				wait 3 second
+				give %{nagrodal}%
+				send "&aWylosowales &e%{nagrodal}%&a!"
+				if {nagrodal} contains "levi":
+					add leather chestplate named "&2&l Sprzęt do trójwymiarowego manewru &2&n&lLeviego" to player
+				
+command /zadkikluczdaj [<player>]:
+	permission: bl.kluczdaj
+	trigger:
+		add tripwire hook named "{@zadki}" to argument 1
+
+on rightclick:
+	if target block is sign:
+		if line 1 of clicked block is "[Zadki]":
+			if player has tripwire hook named "&f&k|&1&k&l|&f&k| &1&lŻadki Klucz &f&k|&1&k&l|&f&k|":
+				set {nagrodaza} to "wydajny kilof" or "1000$" or "emeraldy 32" or "diamond block 7" or "OMG legendarny klucz" or "Netheryt" or "5x pospolite klucze" or "Czaszki czarnego szkieleta"
+				message "Trwa loswanie"
+				remove 1 tripwire hook named "&f&k|&1&k&l|&f&k| &1&lŻadki Klucz &f&k|&1&k&l|&f&k|" from the player
+				wait 3 second
+				send "&aWylosowales &e%{nagrodaza}%&a!"
+				if {nagrodaza} contains "bloki zelaza":
+					give a diamond pickaxe of efficiency 6 to the player
+				if {nagrodaza} contains "1000$":
+					execute console command "/eco give %player% 1000"
+				if {nagrodaza} contains "emeraldy 32":
+					execute console command "/give %player% emerald 32"
+				if {nagrodaza} contains "diamond block 7":
+					execute console command "/give %player% diamond_block 7"
+				if {nagrodaza} contains "OMG legendarny klucz":
+					execute console command "/legendrnykluczdaj %player%
+				if {nagrodaza} contains "5x pospolite klucze"
+					loop 5 times:
+						execute console command "/pospolitykluczdaj %player%
+				if {nagrodaza} contains "Netheryt"
+					add netherite ingot to player
+				if {nagrodaza} contains "Czaszki czarnego szkieleta"
+					execute console command "/give %player% wither_skeleton_skull 3"
+					
+command /pospolitykluczdaj [<player>]:
+	permission: bl.kluczdaj
+	trigger:
+		add tripwire hook named "&f&k|&a&k&l|&f&k| &a&lPospolity Klucz &f&k|&a&k&l|&f&k|" to argument 1
+		
+on rightclick:
+	if target block is sign:
+		if line 1 of clicked block is "[Pospolity]":
+			if player has tripwire hook named "&f&k|&a&k&l|&f&k| &a&lPospolity Klucz &f&k|&a&k&l|&f&k|":
+				set {nagrodap} to "bloki zelaza" or "fajne deski" or "emerald 16" or "Multi diamond" or "blok diamentu" or "2xklucze" or "startowy kilof" or "klucz do zwlego losoawania" or "klucz do zadkiego losoawania"
+				message "Trwa loswanie"
+				remove 1 tripwire hook named "&f&k|&a&k&l|&f&k| &a&lPospolity Klucz &f&k|&a&k&l|&f&k|" from the player
+				wait 3 second
+				send "&aWylosowales &e%{nagrodap}%&a!"
+				if {nagrodap} contains "bloki zelaza":
+					execute console command "/give %player% iron_block 6"
+				if {nagrodap} contains "fajne deski":
+					execute console command "/give %player% jungle_planks 47"
+				if {nagrodap} contains "emerald 16":
+					execute console command "/give %player% emerald 16"
+				if {nagrodap} contains "Multi diamond":
+					execute console command "/give %player% diamond 10"
+				if {nagrodap} contains "bloki diamentu":
+					execute console command "/give %player% diamond_block 6"
+				if {nagrodap} contains "emerald blok":
+					execute console command "/give %player% emerald_block 1"
+				if {nagrodap} contains "2xklucze":
+					execute console command "/pospolitykluczdaj %player%"
+					execute console command "/pospolitykluczdaj %player%"
+				if {nagrodap} contains "klucz do zadkiego losoawania"
+					execute console command "/zadkikluczdaj %player%"
+				if {nagrodap} contains "klucz do zwlego losoawania"
+					execute console command "/zwyklykluczdaj %player%"
+				if {nagrodap} contains "startowy kilof":
+					give a iron pickaxe of efficiency 3 to the player
+				
+				
+command /zwyklykluczdaj [<player>]:
+	permission: bl.kluczdaj
+	trigger:
+		give a tripwire hook named "{@zwykly}" to the argument 1
+		
+on rightclick:
+	if target block is sign:
+		if line 1 of clicked block is "[Zwykly]":
+			if player has tripwire hook named "&f&k|&7&k&l|&f&k| &7&lZwykły Klucz &f&k|&7&k&l|&f&k|":
+				set {nagrodaz} to "500$" or "kilof" or "500gem" or "diament" or "16 zelaza" or "ponowny los" or "sadzanka" or "deski" or "emeraldy"
+				message "Trwa loswanie"
+				remove 1 tripwire hook named "&f&k|&7&k&l|&f&k| &7&lZwykły Klucz &f&k|&7&k&l|&f&k|" from the player
+				wait
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				3 second
+				send "&aWylosowales &e%{nagrodaz}%&a!"
+				if {nagrodaz} contains "500$":
+					execute console command "/eco give %player% 500"
+				if {nagrodaz} contains "deski":
+					execute console command "/give %player% oak_planks 32"
+				if {nagrodaz} contains "diament":
+					execute console command "/give %player% diamond 1"
+				if {nagrodaz} contains "500gem":
+					execute console command "/scoreboard players add gemy %player% 500"
+				if {nagrodaz} contains "16 zelaza":
+					execute console command "/give %player% iron_ingot 16"
+				if {nagrodaz} contains "sadzanka":
+					execute console command "/give oak_sapling 5"
+				if {nagrodaz} contains "emeraldy":
+					execute console command "/give %player% emerald_block 2"
+				if {nagrodaz} contains "ponowny los":
+					execute console command "/kluczdaj %player%"
+				if {nagrodaz} contains "kilof":
+					give a iron pickaxe of efficiency 3 to the player

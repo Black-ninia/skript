@@ -1,0 +1,17 @@
+command /odliczanie:
+	permission: bl.odlicznie
+	trigger:
+		set {odliczanie} to 10
+		loop 10 times:
+			execute console command "/eventogłoś &%{kolor}% %{odliczanie}%"
+			remove 1 from {odliczanie}
+			wait 1 second
+		execute console command "/eventogłoś &2Start"
+        
+command /eventogłoś [<text>]:
+    permission: bl.eventogłoszenie
+    permission message: &4Nie możesz używa tej komendy.
+    trigger:
+        if arg is set:
+            send subtitle "&4>>&7%arg%&4<<" to all players for 6 seconds
+            send "&7[&4Event&7] &7%arg 1%" to all players
